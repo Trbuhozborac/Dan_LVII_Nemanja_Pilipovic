@@ -18,8 +18,9 @@
 
         }
 
-        public Item(string name, int amount, int price)
+        public Item(int id,string name, int amount, int price)
         {
+            Id = id;
             Name = name;
             Amount = amount;
             Price = price;

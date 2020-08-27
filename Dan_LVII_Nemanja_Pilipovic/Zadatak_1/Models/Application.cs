@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Zadatak_1_Service;
@@ -19,8 +21,8 @@ namespace Zadatak_1.Models
             Console.WriteLine("Welcome User!");
             Console.WriteLine("Enter one of the numbers from menu:");
             Console.WriteLine("1) Show all Items");
-            Console.WriteLine("2) Item price modification");
-            Console.WriteLine("3) Add new Item");
+            Console.WriteLine("2) Add new Item");
+            Console.WriteLine("3) Item price modification");
             Console.WriteLine("4) Buy");
             Console.WriteLine("0) Close the app");
             string userAnswer = Console.ReadLine();
@@ -34,10 +36,11 @@ namespace Zadatak_1.Models
                         ReturnAfterAction();
                         break;
                     case 2:
-                        Console.WriteLine("opa");
+                        AddNewItem();
+                        ReturnAfterAction();
                         break;
                     case 3:
-                        AddNewItem();
+                        ModifyItemPrice();
                         ReturnAfterAction();
                         break;
                     case 4:
@@ -76,7 +79,7 @@ namespace Zadatak_1.Models
             item.Price = GetItemPrice();
             item.Id = r.Next(0, 1000);
             
-            string itemInfo = "\n" + item.Id + item.Name + "," + item.Amount + "," + item.Price;
+            string itemInfo = "\n" + item.Id + "," + item.Name + "," + item.Amount + "," + item.Price;
             Service1 s = new Service1();
             s.AddNewItem(itemInfo);
         }
@@ -140,6 +143,148 @@ namespace Zadatak_1.Models
             {
                 Console.WriteLine("Please enter a number");
                 return GetItemPrice();
+            }
+        }
+
+
+        private void ModifyItemPrice()
+        {
+            Service1 s = new Service1();
+            
+            List<Item> allItems = GetListOfAllItems();
+            foreach (Item item in allItems)
+            {
+                Console.WriteLine(item.Id + ")" + " Name: " + item.Name + " Amount: " + item.Amount + " Price: " + item.Price + "$");
+            }
+
+            Item foundedItem = GetMatch(allItems);
+            if(foundedItem != null)
+            {
+                foundedItem.Price = GetItemPrice();
+                Console.WriteLine("Item Price Updated Successfully!");
+            }
+
+            WriteListToTxtFile(allItems);
+
+        }
+
+        private void WriteListToTxtFile(List<Item> allItems)
+        {
+            string _loaction = @"~/../../../Items.txt";
+
+            try
+            {
+                if (File.Exists(_loaction))
+                {
+                    File.WriteAllText(_loaction, "");
+                    foreach (Item item in allItems)
+                    {
+                        string allInfoAboutItem = "\n" + item.Id + "," + item.Name + "," + item.Amount + "," + item.Price;
+                        File.AppendAllText(_loaction, allInfoAboutItem);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
+        private Item GetMatch(List<Item> allItems)
+        {
+            Console.WriteLine("Enter Id of the Item witch Price you want to modify <Enter 0 to go back>:");
+            Item foundedItem = new Item();
+            int id = GetItemId();
+            for (int i = 0; i < allItems.Count; i++)
+            {
+                if(allItems[i].Id == id)
+                {
+                    foundedItem = allItems[i];
+                    break;
+                }
+                else if(allItems[i] == allItems[allItems.Count - 1])
+                {
+                    Console.WriteLine("There is no Item with that Id");
+                    return GetMatch(allItems);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            return foundedItem;
+        }
+
+        private int GetItemId()
+        {
+            string choosenId = Console.ReadLine();
+            if(int.TryParse(choosenId, out int id))
+            {
+                if(id < 0)
+                {
+                    Console.WriteLine("Please enter a positive number");
+                    return GetItemId();
+                }
+                else if (id == 0)
+                {
+                    Application app = new Application();
+                    app.Start();
+                    return 0;
+                }
+                else
+                {
+                    return id;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number");
+                return GetItemId();
+            }
+        }
+
+        private List<Item> GetListOfAllItems()
+        {
+            string _loaction = @"~/../../../Items.txt";
+
+            List<Item> items = new List<Item>();
+            try
+            {
+                if (File.Exists(_loaction))
+                {
+                    string[] allItems = File.ReadAllLines(_loaction);
+                    Console.WriteLine("All items:");
+                    foreach (string item in allItems)
+                    {
+                        if (item != "")
+                        {
+                            string[] allInfo = item.Split(',');
+                            string id = allInfo[0];
+                            string name = allInfo[1];
+                            string amount = allInfo[2];
+                            string price = allInfo[3];
+
+                            Item existingItem = new Item(Convert.ToInt32(id), name, Convert.ToInt32(amount), Convert.ToInt32(price));
+                            items.Add(existingItem);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    return items;
+                }
+                else
+                {
+                    Console.WriteLine("File not found");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return null;
             }
         }
 
