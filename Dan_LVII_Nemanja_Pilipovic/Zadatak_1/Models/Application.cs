@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Threading;
 using Zadatak_1_Service;
 
@@ -44,7 +45,8 @@ namespace Zadatak_1.Models
                         ReturnAfterAction();
                         break;
                     case 4:
-                        Console.WriteLine("Buy");
+                        BuyItems();
+                        ReturnAfterAction();
                         break;
                     case 0:
                         Console.WriteLine("Closing the app...");
@@ -285,6 +287,83 @@ namespace Zadatak_1.Models
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
                 return null;
+            }
+        }
+
+        private void BuyItems()
+        {
+            List<Item> allItems = GetListOfAllItems();
+            foreach (Item item in allItems)
+            {
+                Console.WriteLine(item.Id + ")" + " Name: " + item.Name + " Amount: " + item.Amount + " Price: " + item.Price + "$");
+            }
+            Console.WriteLine("Enter Id of the Item witch you want to buy <Enter 0 to go back>:");
+            Item foundedItem = new Item();
+            foundedItem = GetMatchBuy(allItems);
+            int amount = AmountOfItem(foundedItem);
+            foundedItem.Amount -= amount;
+            Console.WriteLine("Item Buyed Successfully!");
+
+            WriteListToTxtFile(allItems);
+
+        }
+
+        private Item GetMatchBuy(List<Item> allItems)
+        {
+            Item foundedItem = new Item();
+            int id = GetItemId();
+            for (int i = 0; i < allItems.Count; i++)
+            {
+                if (allItems[i].Id == id)
+                {
+                    foundedItem = allItems[i];
+                    break;
+                }
+                else if (allItems[i] == allItems[allItems.Count - 1])
+                {
+                    Console.WriteLine("There is no Item with that Id");
+                    return GetMatch(allItems);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            return foundedItem;
+        }
+
+        private int AmountOfItem(Item foundedItem)
+        {
+            Console.WriteLine("How much {0} you want to buy? <Enter 0 to go back>", foundedItem.Name);
+            string amountString = Console.ReadLine();
+            if(int.TryParse(amountString, out int amount))
+            {
+                if(amount < 0)
+                {
+                    Console.WriteLine("Please enter a positive number");
+                    return AmountOfItem(foundedItem);
+                }
+                else if(amount == 0)
+                {
+                    Application app = new Application();
+                    app.Start();
+                    return 0;
+                }
+                else if(amount > foundedItem.Amount)
+                {
+                    Console.WriteLine("There is no enough amount");
+                    return AmountOfItem(foundedItem);
+                }
+                else
+                {
+                    return amount;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number");
+                return AmountOfItem(foundedItem);
             }
         }
 
