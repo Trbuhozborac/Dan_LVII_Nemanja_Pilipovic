@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Zadatak_1.Models;
 
 namespace Zadatak_1
 {
@@ -10,6 +6,8 @@ namespace Zadatak_1
     {
         static void Main(string[] args)
         {
+            Application app = new Application();
+            app.Start();
         }
     }
 }
