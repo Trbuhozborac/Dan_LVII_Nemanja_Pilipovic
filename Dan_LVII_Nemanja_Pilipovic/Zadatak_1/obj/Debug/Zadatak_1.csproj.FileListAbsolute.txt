@@ -1,0 +1,11 @@
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1.exe.config
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1.exe
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1.pdb
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\obj\Debug\Zadatak_1.csprojAssemblyReference.cache
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\obj\Debug\Zadatak_1.csproj.CoreCompileInputs.cache
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\obj\Debug\Zadatak_1.exe
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\obj\Debug\Zadatak_1.pdb
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1_Service.dll
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1_Service.pdb
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\bin\Debug\Zadatak_1_Service.dll.config
+C:\Users\Pipi\Desktop\57\Dan_LVII_Nemanja_Pilipovic\Zadatak_1\obj\Debug\Zadatak_1.csproj.CopyComplete

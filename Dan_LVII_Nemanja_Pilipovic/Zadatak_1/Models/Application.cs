@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using Zadatak_1_Service;
 
 namespace Zadatak_1.Models
 {
@@ -24,10 +26,14 @@ namespace Zadatak_1.Models
             string userAnswer = Console.ReadLine();
             if(int.TryParse(userAnswer, out int answer))
             {
+                Service1 s = new Service1();
                 switch (answer)
                 {
                     case 1:
-                        Console.WriteLine("All Items");
+                        s.GetAllItems();
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadLine();
+                        Menu();
                         break;
                     case 2:
                         Console.WriteLine("Price Modification");

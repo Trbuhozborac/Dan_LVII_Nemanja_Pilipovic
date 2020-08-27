@@ -43,11 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Items.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zadatak_1_Service\Zadatak_1_Service.csproj">
+      <Project>{6bedf5e6-4daa-47c7-8dff-1618dfefbcc9}</Project>
+      <Name>Zadatak_1_Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
