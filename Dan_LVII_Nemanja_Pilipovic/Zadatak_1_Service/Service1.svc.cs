@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,7 @@ namespace Zadatak_1_Service
     public class Service1 : IService1
     {
         private readonly string _loaction = @"~/../../../Items.txt";
+        private static int idCounter = 0;
 
         public void AddNewItem(string item)
         {
@@ -72,9 +74,22 @@ namespace Zadatak_1_Service
             }
         }
 
-        public void MoidfyItemPrice(int id, int newPrice)
+        public void WriteBillToTxtFile(string bill)
         {
-            
+            try
+            {
+                string path = @"~/../../../Bill_" + idCounter + "_TimeStamp.txt";
+                using (FileStream fs = File.Create(path)) { }
+                if (File.Exists(path))
+                {
+                    File.WriteAllText(path, bill);
+                    idCounter++;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
     }
 }

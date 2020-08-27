@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace Zadatak_1_Service
@@ -14,7 +15,7 @@ namespace Zadatak_1_Service
         void AddNewItem(string item);
 
         [OperationContract]
-        void MoidfyItemPrice(int id, int newPrice);
+        void WriteBillToTxtFile(string bill);
 
     }    
 }

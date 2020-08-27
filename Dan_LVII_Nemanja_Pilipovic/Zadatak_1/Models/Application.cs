@@ -297,15 +297,61 @@ namespace Zadatak_1.Models
             {
                 Console.WriteLine(item.Id + ")" + " Name: " + item.Name + " Amount: " + item.Amount + " Price: " + item.Price + "$");
             }
-            Console.WriteLine("Enter Id of the Item witch you want to buy <Enter 0 to go back>:");
-            Item foundedItem = new Item();
-            foundedItem = GetMatchBuy(allItems);
-            int amount = AmountOfItem(foundedItem);
-            foundedItem.Amount -= amount;
-            Console.WriteLine("Item Buyed Successfully!");
 
-            WriteListToTxtFile(allItems);
+            Bill bill = new Bill();
+            bill.Items = new List<Item>();
 
+            bool _exit = true;
+            do
+            {
+
+                Console.WriteLine("Enter Id of the Item witch you want to buy <Enter 0 to go back>:");
+                Item foundedItem = new Item();
+                foundedItem = GetMatchBuy(allItems);
+                int amount = AmountOfItem(foundedItem);
+                foundedItem.Amount -= amount;
+                Console.WriteLine("Item Buyed Successfully!");
+
+                Random r = new Random();
+                bill.Id = r.Next(0, 1000);
+                bill.DateOfCreating = DateTime.Now;
+                
+               
+
+                bill.Items.Add(foundedItem);
+
+                bool continueBuy = ContinueBuying();
+                if(continueBuy == true)
+                {
+                    continue;
+                }
+                else
+                {
+                    int totalAmount = 0;
+                    foreach (Item item in bill.Items)
+                    {
+                        totalAmount += item.Price;
+                    }
+
+                    bill.TotalAmount = totalAmount;
+                    WriteListToTxtFile(allItems);
+                    string date = bill.DateOfCreating.ToShortDateString();
+                    string allItemsInfo = "";
+                    foreach (Item item in bill.Items)
+                    {
+                        allItemsInfo +=  item.Name + " To Pay: " + item.Amount * item.Price + "$ ";
+                    }
+                    string price = bill.TotalAmount.ToString();
+
+                    string allInfo = "Date: " + date + ", Items: " + allItemsInfo + ", Total Amount: " + price + "$";
+
+                    Service1 s = new Service1();
+                    s.WriteBillToTxtFile(allInfo);
+                    Console.WriteLine("Buy Confirmed Successfully!");
+                    _exit = false;
+                }
+
+            } while (_exit);
         }
 
         private Item GetMatchBuy(List<Item> allItems)
@@ -364,6 +410,25 @@ namespace Zadatak_1.Models
             {
                 Console.WriteLine("Please enter a number");
                 return AmountOfItem(foundedItem);
+            }
+        }
+
+        private bool ContinueBuying()
+        {
+            Console.WriteLine("Continue buying? <Y/N>");
+            string answer = Console.ReadLine();
+            if (answer == "Y" || answer == "y")
+            {
+                return true;
+            }
+            else if (answer == "N" || answer == "n")
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Please enter Y or N");
+                return ContinueBuying();
             }
         }
 
