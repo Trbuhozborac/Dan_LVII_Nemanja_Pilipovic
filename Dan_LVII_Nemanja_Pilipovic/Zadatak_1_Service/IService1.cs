@@ -1,45 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using Zadatak_1.Models;
 
 namespace Zadatak_1_Service
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IService1
     {
 
-        // TODO: Add your service operations here
         [OperationContract]
         void GetAllItems();
 
+        [OperationContract]
+        void AddNewItem(string item);
+       
     }
-
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
-    public class CompositeType
+    public class Item
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        private string name;
+        private int amount;
+        private int price;
 
         [DataMember]
-        public bool BoolValue
+        public string Name
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         [DataMember]
-        public string StringValue
+        public int Amount
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            get { return amount; }
+            set { amount = value; }
+        }
+
+        [DataMember]
+        public int Price
+        {
+            get { return price; }
+            set { price = value; }
         }
     }
+
 }

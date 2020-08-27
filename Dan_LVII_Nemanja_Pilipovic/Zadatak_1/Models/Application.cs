@@ -26,20 +26,19 @@ namespace Zadatak_1.Models
             string userAnswer = Console.ReadLine();
             if(int.TryParse(userAnswer, out int answer))
             {
-                Service1 s = new Service1();
                 switch (answer)
                 {
                     case 1:
+                        Service1 s = new Service1();
                         s.GetAllItems();
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadLine();
-                        Menu();
+                        ReturnAfterAction();
                         break;
                     case 2:
-                        Console.WriteLine("Price Modification");
+                        Console.WriteLine("opa");
                         break;
                     case 3:
-                        Console.WriteLine("Add New Item");
+                        AddNewItem();
+                        ReturnAfterAction();
                         break;
                     case 4:
                         Console.WriteLine("Buy");
@@ -61,7 +60,91 @@ namespace Zadatak_1.Models
             }
         }
 
+        private void ReturnAfterAction()
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
+            Menu();
+        }
+
+        private void AddNewItem()
+        {
+            Random r = new Random();
+            Item item = new Item();
+            item.Name = GetItemName();
+            item.Amount = GetItemAmount();
+            item.Price = GetItemPrice();
+            item.Id = r.Next(0, 1000);
+            
+            string itemInfo = "\n" + item.Id + item.Name + "," + item.Amount + "," + item.Price;
+            Service1 s = new Service1();
+            s.AddNewItem(itemInfo);
+        }
+
+        private string GetItemName()
+        {
+            Console.WriteLine("Item Name:");
+            string itemName = Console.ReadLine();
+            if (string.IsNullOrEmpty(itemName) || string.IsNullOrWhiteSpace(itemName))
+            {
+                Console.WriteLine("Please enter item name");
+                return GetItemName();               
+            }
+            else
+            {
+                return itemName;
+            }
+        }
+
+        private int GetItemAmount()
+        {
+            Console.WriteLine("Amount:");
+            string itemAmount = Console.ReadLine();
+            if(int.TryParse(itemAmount, out int amount))
+            {
+                if(amount <= 0)
+                {
+                    Console.WriteLine("Please enter positive a number");
+                    return GetItemAmount();
+                }
+                else
+                {
+                    return amount;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number");
+                return GetItemAmount();
+            }
+        }
+
+
+        private int GetItemPrice()
+        {
+            Console.WriteLine("Price:");
+            string itemPrice = Console.ReadLine();
+            if(int.TryParse(itemPrice, out int price))
+            {
+                if(price <= 0)
+                {
+                    Console.WriteLine("Please enter a positive number");
+                    return GetItemPrice();
+                }
+                else
+                {
+                    return price;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number");
+                return GetItemPrice();
+            }
+        }
+
         #endregion
 
     }
 }
+

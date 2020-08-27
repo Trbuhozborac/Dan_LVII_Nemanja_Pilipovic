@@ -1,16 +1,43 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Zadatak_1_Service
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+        public void AddNewItem(string item)
+        {
+            try
+            {
+                string _loaction = @"~/../../../Items.txt";
+
+                if(item != null)
+                {
+                    if (File.Exists(_loaction))
+                    {                        
+                        File.AppendAllText(_loaction, item);
+                        Console.WriteLine("Item Added Successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("File not found.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Something went wrong...");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
         public void GetAllItems()
         {
           
-        }
-
-       
+        }       
     }
 }
