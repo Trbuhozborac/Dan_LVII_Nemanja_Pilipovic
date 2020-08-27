@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Zadatak_1_Service;
 
@@ -12,11 +10,17 @@ namespace Zadatak_1.Models
     {
         #region Functions
 
+        /// <summary>
+        /// Start the appliaction by calling Manu method
+        /// </summary>
         public void Start()
         {
             Menu();
         }
 
+        /// <summary>
+        /// Navigating user throw application
+        /// </summary>
         private void Menu()
         {
             Console.WriteLine("Welcome User!");
@@ -65,6 +69,9 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Returns to Menu
+        /// </summary>
         private void ReturnAfterAction()
         {
             Console.WriteLine("Press any key to continue...");
@@ -72,6 +79,9 @@ namespace Zadatak_1.Models
             Menu();
         }
 
+        /// <summary>
+        /// Create new Item
+        /// </summary>
         private void AddNewItem()
         {
             Random r = new Random();
@@ -85,7 +95,11 @@ namespace Zadatak_1.Models
             Service1 s = new Service1();
             s.AddNewItem(itemInfo);
         }
-
+        
+        /// <summary>
+        /// Gets the Item Name
+        /// </summary>
+        /// <returns>Item Name</returns>
         private string GetItemName()
         {
             Console.WriteLine("Item Name:");
@@ -101,6 +115,10 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Gets Item Amount
+        /// </summary>
+        /// <returns>Item Amount</returns>
         private int GetItemAmount()
         {
             Console.WriteLine("Amount:");
@@ -124,7 +142,10 @@ namespace Zadatak_1.Models
             }
         }
 
-
+        /// <summary>
+        /// Gets Item Price
+        /// </summary>
+        /// <returns>Item Price</returns>
         private int GetItemPrice()
         {
             Console.WriteLine("Price:");
@@ -148,7 +169,9 @@ namespace Zadatak_1.Models
             }
         }
 
-
+        /// <summary>
+        /// Modify Price of the Item
+        /// </summary>
         private void ModifyItemPrice()
         {
             Service1 s = new Service1();
@@ -170,6 +193,10 @@ namespace Zadatak_1.Models
 
         }
 
+        /// <summary>
+        /// Writes info about Item into txt file
+        /// </summary>
+        /// <param name="allItems">List of items</param>
         private void WriteListToTxtFile(List<Item> allItems)
         {
             string _loaction = @"~/../../../Items.txt";
@@ -192,6 +219,11 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Gets Item that have inputed Id
+        /// </summary>
+        /// <param name="allItems">All Items</param>
+        /// <returns>Item that Id matches the inputed one</returns>
         private Item GetMatch(List<Item> allItems)
         {
             Console.WriteLine("Enter Id of the Item witch Price you want to modify <Enter 0 to go back>:");
@@ -218,6 +250,10 @@ namespace Zadatak_1.Models
             return foundedItem;
         }
 
+        /// <summary>
+        /// Gets Item id
+        /// </summary>
+        /// <returns>Item Id</returns>
         private int GetItemId()
         {
             string choosenId = Console.ReadLine();
@@ -246,6 +282,10 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Gets the List of all Items from txt file
+        /// </summary>
+        /// <returns>List of Items</returns>
         private List<Item> GetListOfAllItems()
         {
             string _loaction = @"~/../../../Items.txt";
@@ -290,6 +330,9 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Buying Items
+        /// </summary>
         private void BuyItems()
         {
             List<Item> allItems = GetListOfAllItems();
@@ -354,6 +397,11 @@ namespace Zadatak_1.Models
             } while (_exit);
         }
 
+        /// <summary>
+        /// Search for matched Item
+        /// </summary>
+        /// <param name="allItems">All Items</param>
+        /// <returns>Item that matches inputed Id</returns>
         private Item GetMatchBuy(List<Item> allItems)
         {
             Item foundedItem = new Item();
@@ -379,6 +427,11 @@ namespace Zadatak_1.Models
             return foundedItem;
         }
 
+        /// <summary>
+        /// Gets the Amount of Item
+        /// </summary>
+        /// <param name="foundedItem">Item</param>
+        /// <returns>Amount</returns>
         private int AmountOfItem(Item foundedItem)
         {
             Console.WriteLine("How much {0} you want to buy? <Enter 0 to go back>", foundedItem.Name);
@@ -413,6 +466,10 @@ namespace Zadatak_1.Models
             }
         }
 
+        /// <summary>
+        /// Checks if User wants to continue buying
+        /// </summary>
+        /// <returns>True if wants False if not</returns>
         private bool ContinueBuying()
         {
             Console.WriteLine("Continue buying? <Y/N>");

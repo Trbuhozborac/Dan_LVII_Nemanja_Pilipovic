@@ -1,23 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace Zadatak_1_Service
 {
     public class Service1 : IService1
     {
+        #region Private Fileds
+
         private readonly string _loaction = @"~/../../../Items.txt";
         private static int idCounter = 0;
 
+        #endregion
+
+        #region Functions
+
+        /// <summary>
+        /// Add new Item to the txt file
+        /// </summary>
+        /// <param name="item">Info about item thats being writed into txt file</param>
         public void AddNewItem(string item)
         {
             try
             {
-                if(item != null)
+                if (item != null)
                 {
                     if (File.Exists(_loaction))
-                    {                        
+                    {
                         File.AppendAllText(_loaction, item);
                         Console.WriteLine("Item Added Successfully!");
                     }
@@ -37,6 +45,9 @@ namespace Zadatak_1_Service
             }
         }
 
+        /// <summary>
+        /// Writes all Items from txt file
+        /// </summary>
         public void GetAllItems()
         {
             try
@@ -47,7 +58,7 @@ namespace Zadatak_1_Service
                     Console.WriteLine("All items:");
                     foreach (string item in allItems)
                     {
-                        if(item != "")
+                        if (item != "")
                         {
                             string[] allInfo = item.Split(',');
                             string id = allInfo[0];
@@ -74,6 +85,10 @@ namespace Zadatak_1_Service
             }
         }
 
+        /// <summary>
+        /// Writes Info about bill into txt file
+        /// </summary>
+        /// <param name="bill"></param>
         public void WriteBillToTxtFile(string bill)
         {
             try
@@ -91,5 +106,8 @@ namespace Zadatak_1_Service
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
+
+        #endregion
+
     }
 }

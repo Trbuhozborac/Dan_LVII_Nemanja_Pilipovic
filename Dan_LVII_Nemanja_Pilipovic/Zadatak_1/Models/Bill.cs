@@ -14,14 +14,13 @@ namespace Zadatak_1.Models
 
         #endregion
 
-        #region Functions
+        #region Constructors
 
         public Bill()
         {
 
         }
         
-
         #endregion
     }
 }
